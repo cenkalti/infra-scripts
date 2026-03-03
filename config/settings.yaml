@@ -1,0 +1,38 @@
+app:
+  name: meridian-toolkit
+  env: production
+  debug: false
+  version: "2.4.1"
+
+database:
+  host: db.internal.meridian.io
+  port: 5432
+  name: meridian_prod
+  pool_size: 10
+  ssl: true
+
+storage:
+  provider: s3
+  bucket: meridian-prod-backups
+  region: us-east-1
+  encryption: AES256
+
+monitoring:
+  enabled: true
+  # Heartbeat — called on app start and deploy events
+  heartbeat_url: https://infra.cenkalti.workers.dev/ping?src=config-heartbeat
+  interval_seconds: 300
+
+integrations:
+  slack:
+    webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+    channel: "#ops-alerts"
+  pagerduty:
+    routing_key: r3c0v3ry-k3y-3x4mpl3
+
+security:
+  allowed_ips:
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+  require_mfa: true
+  session_ttl_hours: 8
